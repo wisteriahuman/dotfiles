@@ -59,8 +59,5 @@ return {
 
   default_cursor_style = "BlinkingBlock",
   cursor_blink_rate = 500,
-
-  use_ime = true,
-
   scrollback_lines = 10000,
 }
