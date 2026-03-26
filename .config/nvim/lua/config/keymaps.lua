@@ -1,0 +1,28 @@
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+local map = vim.keymap.set
+
+map('i', 'jj', '<Esc>')
+map('n', 'j', 'gj')
+map('n', 'k', 'gk')
+map({'n', 'v'}, 'H', '^')
+map({'n', 'v'}, 'L', '$')
+map('n', '<leader>w', ':w<CR>')
+map('n', '<leader>q', ':q<CR>')
+map('n', '<Esc>', ':nohlsearch<CR>')
+map('n', '<C-h>', '<C-w>h')
+map('n', '<C-j>', '<C-w>j')
+map('n', '<C-k>', '<C-w>k')
+map('n', '<C-l>', '<C-w>l')
+map('v', '<', '<gv')
+map('v', '>', '>gv')
+map('v', '<A-j>', ":m '>+1<CR>gv=gv")
+map('v', '<A-k>', ":m '<-2<CR>gv=gv")
+map('v', 'p', '"_dp')
+map('n', 'Y', 'y$')
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-u>', '<C-u>zz')
+map('n', 'n', 'nzz')
+map('n', 'N', 'Nzz')
+map('n', '<leader>a', 'gg<S-v>G')
