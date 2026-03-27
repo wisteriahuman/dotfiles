@@ -25,6 +25,7 @@ return {
           "html",
           "cssls",
           "jsonls",
+          "astro",
         },
       })
     end,
@@ -61,6 +62,7 @@ return {
       vim.lsp.enable("html")
       vim.lsp.enable("cssls")
       vim.lsp.enable("jsonls")
+      vim.lsp.enable("astro")
     end,
   },
 }
