@@ -26,6 +26,7 @@ return {
           "cssls",
           "jsonls",
           "astro",
+          "rust_analyzer",
         },
       })
     end,
@@ -63,6 +64,42 @@ return {
       vim.lsp.enable("cssls")
       vim.lsp.enable("jsonls")
       vim.lsp.enable("astro")
+      vim.lsp.enable("rust_analyzer")
+      vim.lsp.enable("sourcekit")
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "swift",
+        callback = function()
+          local root = vim.fs.root(0, function(name)
+            return name:match("%.xcodeproj$")
+          end)
+          if not root then
+            return
+          end
+          local bsj = root .. "/buildServer.json"
+          if vim.uv.fs_stat(bsj) then
+            return
+          end
+          local xcodeproj = vim.fs.find(function(name)
+            return name:match("%.xcodeproj$")
+          end, { path = root, type = "directory" })[1]
+          if xcodeproj then
+            local project = vim.fn.fnamemodify(xcodeproj, ":t")
+            local scheme = project:gsub("%.xcodeproj$", "")
+            vim
+              .system({
+                "xcode-build-server",
+                "config",
+                "-project",
+                project,
+                "-scheme",
+                scheme,
+              }, { cwd = root })
+              :wait()
+            vim.notify("xcode-build-server configured: " .. scheme, vim.log.levels.INFO)
+          end
+        end,
+      })
     end,
   },
 }
